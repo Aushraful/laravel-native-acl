@@ -39,12 +39,11 @@ Route pretection / To prevent users direct access using URL
 on controller,
 
       public function somefunction(){
-           if (Auth::user()->can('view-user')){
-               $users = User::all();
-               return view('back-end/user/user_list', compact('users'));
-           }else{
+           if (Auth::user()->cannot('view-user')){
                return abort(403);
            }
+           $users = User::all();
+           return view('back-end/user/user_list', compact('users'));
       }
 
 Here the "if" condition is for checking if the authenticated user has permission or not. If has permission, redirects to requested page. else, what message you want to thorugh or redirect them where you want.
